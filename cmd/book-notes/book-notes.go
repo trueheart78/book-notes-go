@@ -14,11 +14,25 @@ func init() {
 		fmt.Println(version.Full())
 		os.Exit(0)
 	}
-	clearScreen()
+	if len(os.Args) > 1 && (os.Args[1] == "create" || os.Args[1] == "import") {
+		if len(os.Args) > 2 {
+			clearScreen()
+		} else {
+			fmt.Println("Error: Missing filename.")
+			os.Exit(1)
+		}
+	} else {
+		fmt.Println("Error: Unrecognized command. Try 'create' or 'import'")
+		os.Exit(1)
+	}
 }
 
 func main() {
-	fmt.Println("Hello")
+	if os.Args[1] == "create" {
+		fmt.Println("Hello! Let's create " + os.Args[2] + "!")
+	} else if os.Args[1] == "import" {
+		fmt.Println("Hello! Let's import " + os.Args[2] + "!")
+	}
 }
 
 func clearScreen() {
