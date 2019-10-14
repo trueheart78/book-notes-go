@@ -15,8 +15,8 @@ func init() {
 		fmt.Println(version.Full())
 		os.Exit(0)
 	}
-	if len(os.Args) > 1 && (os.Args[1] == "create" || os.Args[1] == "import") {
-		if len(os.Args) > 2 {
+	if isCreate() || isImport() {
+		if hasFilename() {
 			clearScreen()
 		} else {
 			fmt.Println("Error: Missing filename.")
@@ -29,12 +29,40 @@ func init() {
 }
 
 func main() {
-	if os.Args[1] == "create" {
-		fmt.Println("Hello! Let's create " + os.Args[2] + "!")
-	} else if os.Args[1] == "import" {
-		fmt.Println("Hello! Let's import " + os.Args[2] + "!")
-	}
+	fmt.Println("Hello! Let's " + mode() + " " + passedFilename() + "!")
 	fmt.Println("adjective: " + adjective.Get())
+}
+
+func mode() string {
+	if isCreate() {
+		return "create"
+	} else if isImport() {
+		return "import"
+	}
+
+	// return an error?
+	return ""
+}
+
+func isCreate() bool {
+	return len(os.Args) > 1 && os.Args[1] == "create"
+}
+
+func isImport() bool {
+	return len(os.Args) > 1 && os.Args[1] == "import"
+}
+
+func hasFilename() bool {
+	return len(os.Args) > 2
+}
+
+func passedFilename() string {
+	if hasFilename() {
+		return os.Args[2]
+	}
+
+	// return an error if hasFilename is false
+	return ""
 }
 
 func clearScreen() {
