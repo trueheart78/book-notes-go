@@ -6,6 +6,7 @@ import (
 	"os/exec"
 	"runtime"
 
+	"github.com/trueheart78/book-notes-go/internal/pkg/adjective"
 	"github.com/trueheart78/book-notes-go/internal/pkg/version"
 )
 
@@ -33,6 +34,7 @@ func main() {
 	} else if os.Args[1] == "import" {
 		fmt.Println("Hello! Let's import " + os.Args[2] + "!")
 	}
+	fmt.Println("adjective: " + adjective.Get())
 }
 
 func clearScreen() {
